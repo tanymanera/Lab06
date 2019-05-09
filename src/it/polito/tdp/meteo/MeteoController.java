@@ -1,6 +1,7 @@
 package it.polito.tdp.meteo;
 
 import java.net.URL;
+import java.time.Month;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ public class MeteoController {
 	private URL location;
 
 	@FXML
-	private ChoiceBox<?> boxMese;
+	private ChoiceBox<Month> boxMese;
 
 	@FXML
 	private Button btnCalcola;
@@ -45,6 +46,9 @@ public class MeteoController {
 		assert btnCalcola != null : "fx:id=\"btnCalcola\" was not injected: check your FXML file 'Meteo.fxml'.";
 		assert btnUmidita != null : "fx:id=\"btnUmidita\" was not injected: check your FXML file 'Meteo.fxml'.";
 		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Meteo.fxml'.";
+		
+		boxMese.getItems().addAll(Month.values());
+		
 	}
 
 }
