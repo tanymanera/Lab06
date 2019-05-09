@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polito.tdp.meteo.bean.Rilevamento;
+import it.polito.tdp.meteo.bean.SimpleCity;
 
 public class MeteoDAO {
 
@@ -47,6 +48,33 @@ public class MeteoDAO {
 	public Double getAvgRilevamentiLocalitaMese(int mese, String localita) {
 
 		return 0.0;
+	}
+
+	public List<SimpleCity> listaCitta() {
+		final String sql = "SELECT DISTINCT Localita FROM situazione";
+
+		List<SimpleCity> tutteCitta = new ArrayList<>();
+
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				SimpleCity citta = new SimpleCity(rs.getString("Localita"));
+				tutteCitta.add(citta);
+			}
+
+			conn.close();
+			return tutteCitta;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 }
