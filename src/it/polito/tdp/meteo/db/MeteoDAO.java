@@ -47,9 +47,33 @@ public class MeteoDAO {
 
 	public Double getAvgRilevamentiLocalitaMese(int mese, String localita) {
 
-		return 0.0;
-	}
+		final String sql = "SELECT AVG(Umidita) AS media_umidita FROM situazione WHERE Localita=? AND month(Data)=?;";
+		Double avgUmidita = -1.0;
 
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, localita);
+			st.setInt(2, mese);
+
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				avgUmidita = rs.getDouble("media_umidita");
+			}
+
+			conn.close();
+			return avgUmidita;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 	public List<SimpleCity> listaCitta() {
 		final String sql = "SELECT DISTINCT Localita FROM situazione";
 

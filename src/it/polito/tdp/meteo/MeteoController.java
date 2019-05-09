@@ -40,6 +40,8 @@ public class MeteoController {
 	@FXML
 	void doCalcolaUmidita(ActionEvent event) {
 
+		txtResult.clear();
+		txtResult.appendText(model.getUmiditaMedia(boxMese.getValue().getValue()));
 	}
 
 	@FXML

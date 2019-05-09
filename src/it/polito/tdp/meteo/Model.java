@@ -18,12 +18,19 @@ public class Model {
 	public Model() {
 		dao = new MeteoDAO();
 		allCities = dao.listaCitta();
-		System.out.println(allCities);
+//		System.out.println(allCities);
 	}
 
 	public String getUmiditaMedia(int mese) {
 
-		return "TODO!";
+		StringBuilder result = new StringBuilder();
+		for(SimpleCity city: allCities) {
+			result.append(city.toString());
+			result.append(": ");
+			result.append(dao.getAvgRilevamentiLocalitaMese(mese, city.toString()));
+			result.append("\n");
+		}
+		return result.toString();
 	}
 
 	public String trovaSequenza(int mese) {
